@@ -36,6 +36,22 @@ const registerSchema = Joi.object({
     .strip()
 });
 
+const loginSchema = Joi.object({
+  email: Joi.string()
+    .required()
+    .messages({ "string.empty": "email is required" }),
+  password: Joi.string().required().messages({
+    "string.empty": "password is required",
+    "string.alphanum":
+      "password must contain number or alphabet",
+    "string.min": "password must have at least 6 characters"
+  })
+});
+
+exports.validateRegister = validate(registerSchema);
+
+exports.validateLogin = validate(loginSchema);
+
 // const validate = schema =>
 //   function (input) {
 //     const { value, error } = schema.validate(input);
@@ -45,16 +61,3 @@ const registerSchema = Joi.object({
 //     return value;
 //   };
 // ย้ายไปใส่แยกในvalidate
-
-exports.validateRegister = validate(registerSchema);
-
-// exports.validateLogin = validate(loginSchema);
-
-// /////////////////////////////////////
-
-// const loginSchema = Joi.object({
-//   email: Joi.string().required(),
-//   password: Joi.string().required()
-// });
-
-// exports.validateLogin = validate(loginSchema);

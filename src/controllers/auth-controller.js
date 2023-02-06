@@ -1,8 +1,10 @@
 const {
-  validateRegister
+  validateRegister,
+  validateLogin
 } = require("../validators/auth-validator");
 const { Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const { User } = require("../models");
 const createError = require("../utils/create-error");
@@ -33,6 +35,35 @@ exports.register = async (req, res, next) => {
 };
 exports.login = async (req, res, next) => {
   try {
+    // value : email/password
+    const value = validateLogin(req.body);
+
+    // check user in database
+    const user = await User.findOne({
+      where: { email: value.email }
+    });
+
+    if (!user) {
+      createError("invalid email or password", 400);
+    }
+
+    const isCorrect = await bcrypt.compare(
+      value.password,
+      user.password
+    );
+
+    if (!isCorrect) {
+      createError("invalid email or password", 400);
+    }
+
+    // payload id of user
+    const accessToken = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: process.env.JWT_EXPIRES_IN }
+    );
+
+    res.status(200).json({ accessToken });
   } catch (err) {
     next(err);
   }
