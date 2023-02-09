@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true
         }
       },
-      iternary: {
+      activity: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -25,11 +25,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       image1: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       image2: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       }
     },
     {

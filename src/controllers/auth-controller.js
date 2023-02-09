@@ -56,9 +56,16 @@ exports.login = async (req, res, next) => {
       createError("invalid email or password", 400);
     }
 
-    // payload id of user
+    // payload user
     const accessToken = jwt.sign(
-      { id: user.id },
+      {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        profileImage: user.profileImage,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+      },
       process.env.JWT_SECRET_KEY,
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
@@ -67,4 +74,8 @@ exports.login = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+exports.getMe = (req, res, next) => {
+  res.status(200).json({ user: req.user });
 };
