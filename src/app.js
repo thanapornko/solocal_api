@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
+const bookingRoute = require("./routes/booking-route");
 const userRoute = require("./routes/user-route");
 const destinationRoute = require("./routes/destination-route");
 const authRoute = require("./routes/auth-route");
@@ -29,11 +30,7 @@ app.use("/destinations", destinationRoute);
 app.use("/users", userRoute);
 app.use("/guides", guideRoute);
 
-// app.use(
-//   "/mybookings",
-//   authenticateMiddleware,
-//   bookingRoute
-// );
+app.use("/bookings", bookingRoute);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
