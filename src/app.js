@@ -6,10 +6,9 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
 const userRoute = require("./routes/user-route");
-const addRoute = require("./routes/add-route");
-const authRoute = require("./routes/auth-route");
 const destinationRoute = require("./routes/destination-route");
-const bookingRoute = require("./routes/booking-route");
+const authRoute = require("./routes/auth-route");
+const guideRoute = require("./routes/guide-route");
 const authenticateMiddleware = require("./middlewares/authenticate");
 const notFoundMiddleware = require("./middlewares/notFound");
 const errorMiddleware = require("./middlewares/error");
@@ -26,14 +25,15 @@ app.use(express.json());
 // passing req body app/json === cannot handle multi part form data
 
 app.use("/auth", authRoute);
-app.use("/add", addRoute);
+app.use("/destinations", destinationRoute);
 app.use("/users", userRoute);
+app.use("/guides", guideRoute);
 
-app.use(
-  "/mybookings",
-  authenticateMiddleware,
-  bookingRoute
-);
+// app.use(
+//   "/mybookings",
+//   authenticateMiddleware,
+//   bookingRoute
+// );
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

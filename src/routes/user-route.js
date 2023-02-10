@@ -1,12 +1,11 @@
 const express = require("express");
 const userController = require("../controllers/user-controller");
 const upload = require("../middlewares/upload");
-// const authController = require("../controllers/auth-controller");
+
 const authenticate = require("../middlewares/authenticate");
 
 const router = express.Router();
 
-// router.get("/:userId", userController.getUserInfo); ไม่มีปะ
 router.patch(
   "/",
   authenticate,

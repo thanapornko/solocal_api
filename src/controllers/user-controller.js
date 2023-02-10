@@ -4,20 +4,6 @@ const { User } = require("../models");
 const createError = require("../utils/create-error");
 const cloudinary = require("../utils/cloudinary");
 
-// exports.getUserInfo = async (req, res, next) => {
-//   try {
-//     const user = await user.findOne({
-//       where: { id: req.params.userId },
-//       attributes: { exclude: ["password"] }
-//     });
-//     if (!user) {
-//       createError("not found ka", 400);
-//     }
-//   } catch (err) {
-//     next(err);
-//   }
-// }; ไม่มีปะ
-
 exports.updateProfileImage = async (req, res, next) => {
   try {
     let value;
@@ -36,7 +22,9 @@ exports.updateProfileImage = async (req, res, next) => {
     );
 
     value = { profileImage };
-    console.log(req.user);
+    console.log("********");
+    console.log(req.user.profileImage);
+    console.log("********");
     await User.update(value, {
       where: { id: req.user.id }
     });
