@@ -15,7 +15,7 @@ const notFoundMiddleware = require("./middlewares/notFound");
 const errorMiddleware = require("./middlewares/error");
 
 // const { sequelize } = require("./models");
-// sequelize.sync({ force: true });
+// sequelize.sync({ force: false});
 const app = express();
 
 app.use(morgan("dev"));

@@ -11,7 +11,7 @@ router.post(
 );
 
 router.delete(
-  "/:destinationId",
+  "/:bookingId",
   authenticate,
   bookingController.deleteBooking
 );

@@ -11,6 +11,7 @@ router.patch(
   authenticate,
   upload.single("profileImage"),
   userController.updateProfileImage
+  // userController.updateUserName
 );
 // upload middleware add key"files" => can use req.files
 // single method 1 pic .. key = image

@@ -40,3 +40,12 @@ exports.updateProfileImage = async (req, res, next) => {
     }
   }
 };
+
+// exports.updateUserName = async (req, res, next) => {
+//   try {
+//     const value = req.body;
+//     console.log(value);
+//     const name = await User.update(value);
+//     res.status(200).json(name);
+//   } catch (err) {}
+// };

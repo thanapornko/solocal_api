@@ -14,17 +14,27 @@ exports.confirmBooking = async (req, res, next) => {
     const existingBooking = await Booking.findOne({
       where: {
         [Op.and]: [
-          { date: value.date },
+          { date: new Date(value.date) },
           { destinationId: value.destinationId }
         ]
       }
     });
-    // console.log(value.date);
-    // console.log(value.destinationId);
-    if (existingBooking) {
-      createError("Booking not available", 400);
-    }
 
+    console.log(existingBooking);
+
+    if (existingBooking) {
+      return createError("Booking not available", 400);
+    }
+    const userExistingBooking = await Booking.findOne({
+      where: { userId: value.userId }
+    });
+
+    if (userExistingBooking) {
+      return createError(
+        "You cannot create more than 1 booking",
+        400
+      );
+    }
     const booking = await Booking.create(value);
     res
       .status(200)
@@ -49,7 +59,7 @@ exports.deleteBooking = async (req, res, next) => {
         403
       );
     }
-    console.log(req.user.id);
+    // console.log(req.user.id);
     await booking.destroy();
     res.status(200).json({ message: "already delete ka" });
   } catch (err) {
