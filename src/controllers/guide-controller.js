@@ -37,3 +37,15 @@ exports.updateGuideImage = async (req, res, next) => {
     }
   }
 };
+
+exports.updateGuideInfo = async (req, res, next) => {
+  try {
+    const value = req.body;
+    console.log(value);
+    const guide = await Guide.create(value);
+
+    res.status(200).json({ guide });
+  } catch (err) {
+    next(err);
+  }
+};

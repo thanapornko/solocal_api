@@ -3,12 +3,32 @@ const {
   Destination,
   Guide
 } = require("../models");
+const { Op } = require("sequelize");
+const createError = require("../utils/create-error");
 
 exports.confirmBooking = async (req, res, next) => {
   try {
     const value = req.body;
     value.userId = req.user.id;
+
+    const existingBooking = await Booking.findOne({
+      where: {
+        [Op.and]: [
+          { date: value.date },
+          { destinationId: value.destinationId }
+        ]
+      }
+    });
+    // console.log(value.date);
+    // console.log(value.destinationId);
+    if (existingBooking) {
+      createError("Booking not available", 400);
+    }
+
     const booking = await Booking.create(value);
+    res
+      .status(200)
+      .send({ message: "booking succesfully" });
   } catch (err) {
     next(err);
   }
@@ -17,8 +37,9 @@ exports.confirmBooking = async (req, res, next) => {
 exports.deleteBooking = async (req, res, next) => {
   try {
     const booking = await Booking.findOne({
-      where: { id: req.params.destinationId }
+      where: { id: req.params.bookingId }
     });
+
     if (!booking) {
       createError("no booking ka", 400);
     }
@@ -30,7 +51,23 @@ exports.deleteBooking = async (req, res, next) => {
     }
     console.log(req.user.id);
     await booking.destroy();
-    res.status(204).json({ message: "already delete ka" });
+    res.status(200).json({ message: "already delete ka" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getBooking = async (req, res, next) => {
+  try {
+    const booking = await Booking.findOne({
+      where: { userId: req.user.id },
+      include: [
+        { model: Destination, include: [{ model: Guide }] }
+      ]
+    });
+    console.log(req.user.id);
+
+    res.status(200).json({ booking });
   } catch (err) {
     next(err);
   }

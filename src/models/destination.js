@@ -16,13 +16,13 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true
         }
       },
-      // price: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      //   validate: {
-      //     notEmpty: true
-      //   }
-      // },
+      price: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
       activity: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -40,7 +40,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      underscored: true
+      underscored: true,
+      timestamps: false
     }
   );
 

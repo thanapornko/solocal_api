@@ -4,6 +4,8 @@ const upload = require("../middlewares/upload");
 
 const router = express.Router();
 
+router.post("/", guideController.updateGuideInfo);
+
 router.patch(
   "/:guideId",
   upload.single("profileImage"),

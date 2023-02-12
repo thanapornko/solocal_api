@@ -2,13 +2,14 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     "User",
     {
-      username: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: true
         }
       },
+
       email: {
         type: DataTypes.STRING,
         unique: true,
@@ -23,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       profileImage: DataTypes.STRING
     },
     {
-      underscored: true
+      underscored: true,
+      timestamps: false
     }
   );
 
