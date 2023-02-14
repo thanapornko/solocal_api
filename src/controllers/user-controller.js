@@ -7,9 +7,9 @@ const cloudinary = require("../utils/cloudinary");
 exports.updateProfileImage = async (req, res, next) => {
   try {
     let value;
-    if (!req.file) {
-      createError("profile image is require");
-    }
+    // if (!req.file) {
+    //   createError("profile image is require");
+    // }
     console.log(req.file);
     // req.files has path as key
 
@@ -41,18 +41,18 @@ exports.updateProfileImage = async (req, res, next) => {
   }
 };
 
-// exports.updateUserName = async (req, res, next) => {
-//   try {
-//     const value = req.body;
-//     console.log(
-//       "-----------------------------> ",
-//       req.body
-//     );
-//     await User.update(value, {
-//       where: { id: req.user.id }
-//     });
-//     res.status(200).json(value);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
+exports.updateUserName = async (req, res, next) => {
+  try {
+    const value = req.body;
+    console.log(
+      "-----------------------------> ",
+      req.body
+    );
+    await User.update(value, {
+      where: { id: req.user.id }
+    });
+    res.status(200).json(value);
+  } catch (err) {
+    next(err);
+  }
+};
