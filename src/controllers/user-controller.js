@@ -44,8 +44,15 @@ exports.updateProfileImage = async (req, res, next) => {
 // exports.updateUserName = async (req, res, next) => {
 //   try {
 //     const value = req.body;
-//     console.log(value);
-//     const name = await User.update(value);
-//     res.status(200).json(name);
-//   } catch (err) {}
+//     console.log(
+//       "-----------------------------> ",
+//       req.body
+//     );
+//     await User.update(value, {
+//       where: { id: req.user.id }
+//     });
+//     res.status(200).json(value);
+//   } catch (err) {
+//     next(err);
+//   }
 // };

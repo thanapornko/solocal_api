@@ -19,7 +19,7 @@ exports.confirmBooking = async (req, res, next) => {
         ]
       }
     });
-
+    console.log(value.date);
     console.log(existingBooking);
 
     if (existingBooking) {
