@@ -19,8 +19,8 @@ exports.confirmBooking = async (req, res, next) => {
         ]
       }
     });
-    console.log(value.date);
-    console.log(existingBooking);
+    // console.log(value.date);
+    // console.log(existingBooking);
 
     if (existingBooking) {
       return createError("Booking not available", 400);

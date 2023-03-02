@@ -19,9 +19,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
-      profileImage: DataTypes.STRING
+      profileImage: DataTypes.STRING,
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      omiseId: DataTypes.STRING
     },
     {
       underscored: true,

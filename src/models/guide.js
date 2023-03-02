@@ -25,7 +25,14 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Guide.associate = db => {
-    Guide.hasOne(db.Destination, {
+    Guide.belongsTo(db.Destination, {
+      foreignKey: {
+        name: "destinationId",
+        allowNull: true
+      },
+      onDelete: "RESTRICT"
+    });
+    Guide.hasMany(db.Booking, {
       foreignKey: {
         name: "guideId",
         allowNull: false
