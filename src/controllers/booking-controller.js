@@ -11,11 +11,13 @@ exports.confirmBooking = async (req, res, next) => {
     const value = req.body;
     value.userId = req.user.id;
 
+    console.log(value, "---value");
+
     const existingBooking = await Booking.findOne({
       where: {
         [Op.and]: [
           { date: new Date(value.date) },
-          { destinationId: value.destinationId }
+          { guideId: value.guideId }
         ]
       }
     });
@@ -72,7 +74,7 @@ exports.getBooking = async (req, res, next) => {
     const booking = await Booking.findOne({
       where: { userId: req.user.id },
       include: [
-        { model: Destination, include: [{ model: Guide }] }
+        { model: Guide, include: [{ model: Destination }] }
       ]
     });
     console.log(req.user.id);

@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { Guide } = require("../models");
+const { Guide, Destination } = require("../models");
 const createError = require("../utils/create-error");
 const cloudinary = require("../utils/cloudinary");
 
