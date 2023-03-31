@@ -40,7 +40,7 @@ exports.confirmBooking = async (req, res, next) => {
     const booking = await Booking.create(value);
     res
       .status(200)
-      .send({ message: "booking succesfully" });
+      .send({ message: "booking successfully" });
   } catch (err) {
     next(err);
   }

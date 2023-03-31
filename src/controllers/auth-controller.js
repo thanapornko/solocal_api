@@ -64,7 +64,8 @@ exports.login = async (req, res, next) => {
         email: user.email,
         profileImage: user.profileImage,
         createdAt: user.createdAt,
-        updatedAt: user.updatedAt
+        updatedAt: user.updatedAt,
+        isAdmin: user.isAdmin
       },
       process.env.JWT_SECRET_KEY,
       { expiresIn: process.env.JWT_EXPIRES_IN }

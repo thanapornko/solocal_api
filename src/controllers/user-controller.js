@@ -7,22 +7,26 @@ const cloudinary = require("../utils/cloudinary");
 exports.updateProfileImage = async (req, res, next) => {
   try {
     let value;
-    // if (!req.file) {
-    //   createError("profile image is require");
-    // }
-    console.log(req.file);
-    // req.files has path as key
+    let profileImage;
 
-    // upload (filepath, publicId)
-    const profileImage = await cloudinary.upload(
-      req.file.path,
-      req.user.profileImage
-        ? cloudinary.getPublicId(req.user.profileImage)
-        : null
-    );
+    if (!req.file) {
+      profileImage = req.user.profileImage;
+      // createError("profile image is require");
+    } else {
+      console.log(req.file);
+      // req.files has path as key
+
+      // upload (filepath, publicId)
+      profileImage = await cloudinary.upload(
+        req.file.path,
+        req.user.profileImage
+          ? cloudinary.getPublicId(req.user.profileImage)
+          : null
+      );
+    }
 
     value = { profileImage };
-    console.log("********");
+    console.log(profileImage, "********");
     console.log(req.user.profileImage);
     console.log("********");
     await User.update(value, {
@@ -36,6 +40,7 @@ exports.updateProfileImage = async (req, res, next) => {
   } finally {
     if (req.file) {
       fs.unlinkSync(req.file.path);
+
       // delete file
     }
   }
